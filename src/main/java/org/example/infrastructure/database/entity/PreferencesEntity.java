@@ -11,16 +11,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Preferences")
+@Table(name = "preferences")
 public class PreferencesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "preferencesId")
     private Long preferencesId;
+
     @Column(name = "allergens")
     private String allergens;
+
     @Column(name = "comfortFood")
     private String comfortFood;
 }
-
-
