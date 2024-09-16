@@ -1,23 +1,24 @@
 package org.example.infrastructure.database.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "DailyDiet")
 public class DailyDietEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dailyDietId")
     private Long dailyDietId;
-    private MealEntity meal;
 
-    // Getters and setters
-    public Long getDailyDietId() {
-        return dailyDietId;
-    }
+    //TODO:
+    //private MealEntity meal;
 
-    public void setDailyDietId(Long dailyDietId) {
-        this.dailyDietId = dailyDietId;
-    }
-
-    public MealEntity getMeal() {
-        return meal;
-    }
-
-    public void setMeal(MealEntity meal) {
-        this.meal = meal;
-    }
 }

@@ -1,52 +1,33 @@
 package org.example.infrastructure.database.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "DietPlan")
 public class DietPlanEntity {
-    public class DietPlan {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "dietId")
         private Long dietId;
-        private UserEntity user;
+        @Column(name = "startDate")
         private String startDate;
+        @Column(name = "endDate")
         private String endDate;
-        private DailyDietEntity dailyDiet;
 
-        // Getters and setters
-        public Long getDietId() {
-            return dietId;
-        }
+//        @ManyToOne(fetch = FetchType.LAZY)
+//        @JoinColumn(name = "user_id", referencedColumnName = "id")
+//        private DailyDietEntity dailyDiet;
 
-        public void setDietId(Long dietId) {
-            this.dietId = dietId;
-        }
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "dietId", referencedColumnName = "dietId")
+        private UserEntity user;
 
-        public UserEntity getUser() {
-            return user;
-        }
-
-        public void setUser(UserEntity user) {
-            this.user = user;
-        }
-
-        public String getStartDate() {
-            return startDate;
-        }
-
-        public void setStartDate(String startDate) {
-            this.startDate = startDate;
-        }
-
-        public String getEndDate() {
-            return endDate;
-        }
-
-        public void setEndDate(String endDate) {
-            this.endDate = endDate;
-        }
-
-        public DailyDietEntity getDailyDiet() {
-            return dailyDiet;
-        }
-
-        public void setDailyDiet(DailyDietEntity dailyDiet) {
-            this.dailyDiet = dailyDiet;
-        }
-    }
 }
