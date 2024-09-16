@@ -1,7 +1,6 @@
 package org.example.infrastructure.database.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +13,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "Meal")
 public class MealEntity {
-        private Long mealId;
-        private RecipeEntity recipe;
-        private double multiplier;
-        private String mealType;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "mealId")
+         private Long mealId;
+        @Column(name = "recipe")
+         private RecipeEntity recipe;
+        @Column(name = "multiplier")
+         private double multiplier;
+        @Column(name = "mealType")
+         private String mealType;
 
 
 }
