@@ -1,4 +1,16 @@
 package org.example.domain;
 
-public class Preferences {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@Builder
+public class Preferences{
+    private Long preferencesId;
+    private String allergens;
+    private String comfortFood;
 }

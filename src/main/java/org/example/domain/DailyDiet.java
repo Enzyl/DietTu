@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class DailyDiet {
+public class DailyDiet{
     private Long dailyDietId;
     private Meal meal;
 }
