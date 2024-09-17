@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +17,5 @@ public class User{
     private String email;
     private UserMetric userMetric;
     private Preferences preferences;
+    private List<DietPlan> dietPlans;
 }

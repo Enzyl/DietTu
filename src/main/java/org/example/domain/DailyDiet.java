@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,5 +12,6 @@ import lombok.Setter;
 @Builder
 public class DailyDiet{
     private Long dailyDietId;
-    private Meal meal;
+    private DietPlan dietPlan;
+    private List<Meal> meals;
 }
