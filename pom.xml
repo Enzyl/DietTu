@@ -203,6 +203,29 @@
                 </configuration>
             </plugin>
 
+            <!-- Flyway plugin -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/DietTu</url>
+                    <user>postgres</user>
+                    <password>postgres</password>
+                    <locations>
+                        <location>classpath:db/migration</location>
+                    </locations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase> <!-- lub 'validate' w zależności od potrzeb -->
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Surefire Plugin for JUnit -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
