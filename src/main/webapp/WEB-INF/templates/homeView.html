@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthyLife - Start Your Journey</title>
+
+    <!-- Dodanie prostych stylów CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+            background-color: #ff4757;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        .content {
+            margin: 20px 0;
+        }
+
+        img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff4757;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 25px;
+        }
+
+        .cta-button:hover {
+            background-color: #e84118;
+        }
+
+        footer {
+            margin-top: 30px;
+            background-color: #222;
+            color: white;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>HealthyLife</h1>
+    <p>Jedziemy panowie!</p>
+</header>
+
+<div class="content">
+    <img th:src="@{/resources/calories-burn-meme.jpg}" alt="Healthy Lifestyle Image" />
+    <p>RUUURRRAAAA!</p>
+    <a href="#get-started" class="cta-button">Get Started</a>
+</div>
+
+<footer>
+    <p>&copy; 2024 HealthyLife. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

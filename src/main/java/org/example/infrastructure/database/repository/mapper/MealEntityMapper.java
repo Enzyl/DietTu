@@ -13,7 +13,7 @@ public interface MealEntityMapper {
     @Mapping(target = "dailyDiet", ignore = true)
     Meal mapFromEntity(MealEntity mealEntity);
 
-    @Mapping(target = "recipes", ignore = true)
+    @Mapping(target = "recipe", ignore = true)
     @Mapping(target = "dailyDiet", ignore = true)
     MealEntity mapToEntity(Meal meal);
 }

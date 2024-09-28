@@ -1,0 +1,34 @@
+Tutaj tworzymy Controllery. Kontrolery są częścią warstwy prezentacji w architekturze trójwarstwowej. W tej architekturze
+mamy warstwę danych, warstwę logiki biznesowej i warstwę prezentacji. Warstwa danych bawi się tylko z baza danych,
+warstwa logiki biznesowej to inaczej serwisy i wykonują one oczywiscie "logikę", a warstwa prezentacji pokazuje w przeglądarce
+wyniki tego co wyjdzie w logice biznesowej.
+
+Aplikacja domyślnie jest wystawiona na endpoint "/" - przyda się zaraz info
+
+Tak więc w kontrolerach będziemy pisali endpointy po których będziemy się poruszać u nas w aplikacji. W HomeController mamy już metodę
+ "showMainPage()", która ma adnotację @GetMapping("/"). Oznacza to tyle, że po wejściu w link, który pokaże nam się po uruchomieniu
+ Tomcat (konfigurację trzeba samemu ustawić - później będzie to robił za nas SpringBoot, ale na razie bez niego. To jak zrobić konfigurację
+ pokazuję w folderze XXXXXTUTAJWSTAWNAZWĘTEGOFOLDERUDANIELXXXX) i który wygląda tak: "http://localhost:8080/" będziemy
+ przekierowani do przeglądarki po ten właśnie endpoint, czyli url http://localhost:8080/. I nasza aplikacja będzie nasłuchiwała każdego
+ enpointu i po wywołaniu danego endpointu będzie uruchamiana metoda z kontrolera, która jest oddelegowana do tego endpointu,
+ a to "oddelegowanie" to nic innego jak "/" w NA PRZYKŁAD @GetMapping("/").
+
+ Aplikację piszemy w architekturze trójwarstwowej, a w przeglądarce działamy w schemacie MVC, czyli Model-View-Controller.
+ W skrócie działa to tak, że klikasz na link "http://localhost:8080/" i jesteś w przeglądarce przekierowany na ten konkretny
+ URL. Na ten URL u nas nasłuchuje ciągle metoda "showMainPage()" z HomeController. Gdy metoda z tego kontrolera usłyszy
+ że wchodzisz na ten endpoint, to aktywuje się i po wykonaniu wszystkiego co ma napisane w ciele metody zwraca nam WIDOK.
+ Czyli Kontroler zwraca nam widok - git. Widok może być uzupełniony o dane jakieś np. dane użytkownika lub cokolwiek i te dane są
+ przekazywane w MODELU. Do modelu możesz dodać od groma atrybutów. Czyli przepływ danych wygląda tak: klikasz na URL,
+ connector wyłapuje ten url, odpala metodę, w metodzie tworzysz Model do którego dodajesz info które chcesz przekazać do WIDOKu
+ i z metody zwracasz Stringa, który jest nazwą WIDOKU i wówczasz pokazuje Ci się odpowiedni HTML.
+
+ UWAGA! Model działa w obrębie wywołania jednej metody i potem jego zawartość jest usuwana.
+
+
+ Tworząc serwisy, kontrolery oraz repozytoria starajmy się, żeby były one tematyczne np. UserController będzie wykonywał działania
+ dla Usera np. pokaże jego profil z mailem itd, a repozytorium UserRepository będzie działało na danych dla Usera, a nie np dla przepisów.
+
+
+Tak więc Mikołaj twórz logikę biznesową, potem twórz kontroler odpowiedni z metodą wyświetlającą HTML żeby pokazać wynik logiki biznesowej i tak w koło Mikołaju.
+
+

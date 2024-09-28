@@ -6,29 +6,59 @@
     <groupId>org.example</groupId>
     <artifactId>special-force-</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <logback.version>1.4.4</logback.version>
+        <logback.version>1.4.5</logback.version>
+        <thymeleaf.version>3.1.0.RELEASE</thymeleaf.version>
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
-        <spring.version>6.0.0-RC1</spring.version>
-        <spring-data.version>3.0.0-RC1</spring-data.version>
-        <hibernate.version>6.1.4.Final</hibernate.version>
+        <spring.version>6.0.0</spring.version>
+        <spring-data.version>3.0.0</spring-data.version>
+        <hibernate.version>6.1.5.Final</hibernate.version>
         <hikari.version>5.0.1</hikari.version>
         <postgresql.version>42.5.0</postgresql.version>
-        <flyway.version>9.5.0</flyway.version>
+        <flyway.version>9.8.2</flyway.version>
         <junit.version>5.9.1</junit.version>
         <mockito.version>4.8.1</mockito.version>
         <testcontainers.version>1.17.5</testcontainers.version>
+        <jakartaApi.version>9.1.0</jakartaApi.version>
     </properties>
 
-
     <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaApi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Jakarta Servlet API -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+
         <!-- Logback -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -142,6 +172,19 @@
             <version>${flyway.version}</version>
         </dependency>
 
+        <!-- Thymeleaf -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring6</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -218,7 +261,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>compile</phase> <!-- lub 'validate' w zależności od potrzeb -->
+                        <phase>compile</phase>
                         <goals>
                             <goal>migrate</goal>
                         </goals>
