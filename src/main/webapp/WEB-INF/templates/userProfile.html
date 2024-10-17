@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil użytkownika</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Profil użytkownika</h1>
+</header>
+<div class="user-profile">
+    <h2>Witaj, <span th:text="${user.username}"></span>!</h2>
+    <div class="user-details">
+        <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+        <p><strong>Wiek:</strong> <span th:text="${user.userMetrics.age}"></span> lat</p>
+        <p><strong>Wzrost:</strong> <span th:text="${user.userMetrics.height}"></span> cm</p>
+        <p><strong>Obecna waga:</strong> <span th:text="${user.userMetrics.currentWeight}"></span> kg</p>
+        <p><strong>Poziom aktywności:</strong> <span th:text="${user.userMetrics.activityLevel}"></span></p>
+        <p><strong>Docelowa waga:</strong> <span th:text="${user.userMetrics.targetWeight}"></span> kg</p>
+        <p><strong>Alergeny:</strong> <span th:text="${user.preferences.allergens}"></span></p>
+        <p><strong>Ulubione jedzenie:</strong> <span th:text="${user.preferences.comfortFood}"></span></p>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 Twoja Aplikacja Dietetyczna</p>
+</footer>
+</body>
+</html>
