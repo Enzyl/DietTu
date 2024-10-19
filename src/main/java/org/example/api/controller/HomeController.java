@@ -55,9 +55,14 @@ public class HomeController {
 
     @GetMapping("/generateDiet")
     public String generateDiet(HttpSession session){
-        log.info("##### HomeController ### mainPageWorks");
+        log.info("##### HomeController ### generateDiet");
+        boolean userLoggedIn =(boolean) session.getAttribute("userLoggedIn");
+        log.info("##### HomeController ### userLoggedIn: {}", userLoggedIn);
 
-
+        if (!userLoggedIn){
+            // jeśli użytkownik jest niezalgoowany
+            return "loginView";
+        }
 
         return "home";
     }

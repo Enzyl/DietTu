@@ -31,4 +31,9 @@ public class UserRepository implements UserDAO{
         Long id = byUsername.orElseThrow().getUserId(); // dlaczego to kurwa nie działa to jebane @getter - już działa, ale fajny kom to zostaje |MP|
         return id;
     }
+
+    @Override
+    public void save(UserEntity user) {
+        userJpaRepository.save(user);
+    }
 }

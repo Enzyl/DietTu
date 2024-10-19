@@ -14,7 +14,7 @@ public interface UserEntityMapper {
     @Mapping(target = "dietPlans", ignore = true)
     User mapFromEntity(UserEntity entity);
 
-    @Mapping(target = "userMetric", ignore = true)
+    @Mapping(target = "userMetricEntity", ignore = true)
     @Mapping(target = "preferences", ignore = true)
     @Mapping(target = "dietPlans", ignore = true)
     UserEntity mapToEntity(User user);

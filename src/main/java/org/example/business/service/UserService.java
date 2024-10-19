@@ -2,16 +2,22 @@ package org.example.business.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.api.dto.UserRegisterRequestDTO;
 import org.example.business.dao.UserDAO;
 import org.example.domain.User;
+import org.example.infrastructure.database.entity.UserEntity;
+import org.example.infrastructure.database.entity.UserMetricEntity;
 import org.example.infrastructure.database.repository.UserRepository;
+import org.example.infrastructure.database.repository.mapper.UserEntityMapper;
+import org.example.infrastructure.database.repository.mapper.UserMetricEntityMapper;
 import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserDAO userDAO;
-
+    private final UserEntityMapper userEntityMapper;
+    private final UserMetricEntityMapper userMetricEntityMapper;
     public boolean verifyUser(String username, String password) {
         log.info("##### UserService ### verifyUser");
         String userPassword = userDAO.findByUsername(username).getPassword();
@@ -53,5 +59,17 @@ public class UserService {
         log.info("##### UserService ### verifyUser");
         User user = userDAO.findByUsername(username);
         return user != null ? true : false;
+    }
+
+    public boolean createUser(User user) {
+        UserMetricEntity userMetricEntity = userMetricEntityMapper.mapToEntity(user.getUserMetric());
+
+        UserEntity userEntity = userEntityMapper.mapToEntity(user);
+        userEntity.setUserMetricEntity(userMetricEntity);
+
+        userDAO.save(userEntity);
+
+        if(userDAO.findByUsername(user.getUsername()) != null) return true;
+        else return false;
     }
 }
