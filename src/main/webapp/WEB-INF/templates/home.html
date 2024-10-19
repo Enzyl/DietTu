@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthyLife - Start Your Journey</title>
 
-    <!-- Dodanie prostych stylów CSS -->
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -68,14 +67,99 @@
             background-color: #e84118;
         }
 
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #ff4757;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e84118;
+        }
+
+        .result {
+            margin-top: 20px;
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
         footer {
             margin-top: 30px;
             background-color: #222;
             color: white;
             padding: 10px;
         }
-
     </style>
+
+    <script>
+        function calculateCalories(event) {
+            event.preventDefault(); // Zatrzymuje przeładowanie strony
+
+            let gender = document.getElementById('gender').value;
+            let age = parseInt(document.getElementById('age').value);
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value);
+            let activity = parseFloat(document.getElementById('activity').value);
+
+            // Wysyłamy dane do serwera, aby zapisać je w sesji
+            fetch('/calculateCalories', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    gender: gender,
+                    age: age,
+                    weight: weight,
+                    height: height,
+                    activity: activity
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    document.getElementById('calorieResult').innerText = "Zapotrzebowanie kaloryczne: " + data.recommendedCalorieIntake + " kcal";
+                    document.getElementById('resultContainer').style.display = "block";
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+    </script>
+
 </head>
 <body>
 
@@ -87,12 +171,47 @@
 
 <div class="content">
     <img th:src="@{/resources/calories-burn-meme.jpg}" alt="Healthy Lifestyle Image" />
-    <p>RUUURRRAAAA!</p>
-    <a href="/register" class="cta-button">Get Started</a>
+
+    <form onsubmit="calculateCalories(event)">
+        <h2>Kalkulator zapotrzebowania kalorycznego</h2>
+
+        <label for="gender">Płeć:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Mężczyzna</option>
+            <option value="female">Kobieta</option>
+        </select>
+
+        <label for="age">Wiek:</label>
+        <input placeholder="40" id="age" name="age" min="10" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required/>
+
+        <label for="weight">Waga (kg):</label>
+        <input placeholder="70" id="weight" name="weight" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required/>
+
+        <label for="height">Wzrost (cm):</label>
+        <input placeholder="180" id="height" name="height" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required/>
+
+        <label for="activity">Poziom aktywności fizycznej:</label>
+        <select id="activity" name="activity" required>
+            <option value="1.2">Brak lub minimalna aktywność</option>
+            <option value="1.375">Lekka aktywność (np. ćwiczenia 1-3 razy w tygodniu)</option>
+            <option value="1.55">Umiarkowana aktywność (np. ćwiczenia 3-5 razy w tygodniu)</option>
+            <option value="1.725">Wysoka aktywność (np. ćwiczenia 6-7 razy w tygodniu)</option>
+            <option value="1.9">Bardzo wysoka aktywność (np. zawodowe sporty, praca fizyczna)</option>
+        </select>
+
+        <input type="submit" value="Oblicz zapotrzebowanie kaloryczne">
+    </form>
+
+    <!-- Ukryty element z wynikiem -->
+    <div id="resultContainer" class="result">
+        <p id="calorieResult">Zapotrzebowanie kaloryczne: </p>
+        <button href="/generateDiet" class="cta-button">Wygeneruj dietę</button>
+    </div>
 </div>
 
 <footer>
     <p>&copy; 2024 HealthyLife. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
