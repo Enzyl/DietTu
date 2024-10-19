@@ -32,7 +32,7 @@ public class UserEntity {
     // To jest relacja jeden do jednego z UserMetricEntity
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userMetricId", referencedColumnName = "userMetricId")
-    private UserMetricEntity userMetric;
+    private UserMetricEntity userMetricEntity;
 
     // To jest relacja wiele do jednego z DietPlanEntity
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

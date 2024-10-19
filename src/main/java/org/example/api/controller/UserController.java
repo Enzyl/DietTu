@@ -24,12 +24,10 @@ public class UserController {
 
     }
 
-    //TODO dodac sesje i inne paramy do stworzenia konta
     @GetMapping("/registerView")
-    public String showRegisterView(@RequestParam("username") String username){
-        boolean isUserExist = userService.isUserExist(username);
-
-        if(isUserExist) return "loginView";
+    public String showRegisterView(){
+        UserRegisterRequestDTO userRegisterRequestDTO;
+        //guzik Zarejestruj
         return "registerView";
     }
     @PostMapping("/register")
@@ -59,8 +57,7 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@RequestParam("username") String username,
                             @RequestParam("password") String password,
-                            HttpSession session
-    ){
+                            HttpSession session){
         boolean isUserValid = userService.verifyUser(username,password);
         session.setAttribute("username", username);
         session.setAttribute("userLoggedIn", isUserValid);

@@ -51,7 +51,10 @@ public class UserService {
        value2 =  formulaMifflin(isWoman, age, weight, height);
 
         log.info("### UserService ### calculateCalories ### RESULT: {}",(value1*activity+value2*activity)/2);
-
+        /*
+            to dla ciebie Daniel <3
+            return age<4 ? 1000 : age<7 ? 1400 : (age<10 && activity>1.2) ? 2100 : age<10 ? 1800 : (value1*activity+value2*activity)/2;
+         */
         return (value1*activity+value2*activity)/2;
     }
 

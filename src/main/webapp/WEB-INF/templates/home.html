@@ -199,6 +199,9 @@
             <option value="1.9">Bardzo wysoka aktywność (np. zawodowe sporty, praca fizyczna)</option>
         </select>
 
+        <label for="height">Co chcesz osiągnąć:</label>
+        <input placeholder="180" id="goal" name="goal" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required/>
+
         <input type="submit" value="Oblicz zapotrzebowanie kaloryczne">
     </form>
 
