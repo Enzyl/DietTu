@@ -29,11 +29,14 @@ public class UserController {
         if(isUserExist) return "loginView";
         return "registerView";
     }
-
+    @GetMapping("/register")
+    public String showRegisterView(){
+        return "register";
+    }
 
     @GetMapping("/loginView")
     public String showLoginUserView(){
-    return "userLoginView";
+        return "loginView";
     }
     @PostMapping("/login")
     public String loginUser(@RequestParam("username") String username,
@@ -48,6 +51,5 @@ public class UserController {
 
         log.info("### Udało się wbić, jest gites ###");
         return "userLoggedInView";
-
     }
 }
