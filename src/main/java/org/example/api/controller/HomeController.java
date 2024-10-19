@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.business.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 import java.util.HashMap;
 
@@ -33,7 +32,7 @@ public class HomeController {
         double weight = Double.parseDouble(requestData.get("weight").toString());
         double height = Double.parseDouble(requestData.get("height").toString());
         double activity = Double.parseDouble(requestData.get("activity").toString());
-
+        int targetAction = Integer.parseInt(requestData.get("goal").toString());
 
         // Wyliczamy zapotrzebowanie kaloryczne
         double recommendedCalorieIntake = userService.calculateCalories(gender, age, weight, height, activity);

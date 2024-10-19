@@ -6,11 +6,11 @@ VALUES ('gluten', 'pizza'),
        ('nuts', 'pasta');
 
 -- Insert sample user metrics
-INSERT INTO user_metrics (age, height, calories, currentWeight, activityLevel, targetWeight)
-VALUES (25, 180, 2500, 80.0, 'moderate', 75.0),
-       (30, 165, 2000, 65.0, 'low', 60.0),
-       (22, 170, 2200, 70.0, 'high', 68.0),
-       (28, 175, 2300, 85.0, 'moderate', 78.0);
+INSERT INTO user_metrics (age, height, calories, currentWeight, activityLevel, targetAction)
+VALUES (25, 180, 2500, 80.0, 1, 1),
+       (30, 165, 2000, 65.0, 1, 2),
+       (22, 170, 2200, 70.0, 3, 2),
+       (28, 175, 2300, 85.0, 2, 1);
 
 -- Insert sample users
 INSERT INTO users (username, password, email, preferencesId, userMetricId)

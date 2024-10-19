@@ -15,6 +15,6 @@ public class UserMetric{
     private int height;
     private int calories;
     private double currentWeight;
-    private String activityLevel;
-    private double targetWeight;
+    private int activityLevel;
+    private int targetAction;
 }

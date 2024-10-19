@@ -27,8 +27,8 @@ public class UserMetricEntity {
     private double currentWeight;
 
     @Column(name = "activityLevel")
-    private String activityLevel;
+    private int activityLevel;
 
-    @Column(name = "targetWeight")
-    private double targetWeight;
+    @Column(name = "targetAction")
+    private int targetAction;
 }

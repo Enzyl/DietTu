@@ -4,6 +4,6 @@ CREATE TABLE user_metrics (
   height INT,
   calories INT,
   currentWeight DOUBLE PRECISION,
-  activityLevel VARCHAR(255),
-  targetWeight DOUBLE PRECISION
+  activityLevel INT,
+  targetAction INT
 );

@@ -199,8 +199,12 @@
             <option value="1.9">Bardzo wysoka aktywność (np. zawodowe sporty, praca fizyczna)</option>
         </select>
 
-        <label for="height">Co chcesz osiągnąć:</label>
-        <input placeholder="180" id="goal" name="goal" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required/>
+        <label for="goal">Co chcesz osiągnąć:</label>
+        <select id="goal" name="goal" required>
+            <option value="1">Chcę schudnąć</option>
+            <option value="2">Chcę utrzymać wagę</option>
+            <option value="3">Chcę przytyć</option>
+        </select>
 
         <input type="submit" value="Oblicz zapotrzebowanie kaloryczne">
     </form>
@@ -214,7 +218,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2024 HealthyLife. All rights reserved.</p>
+    <p>&copy; 2024 JavaStreetDevelopers. All rights reserved.</p>
 </footer>
 
 </body>

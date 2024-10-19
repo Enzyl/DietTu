@@ -18,6 +18,7 @@ public class UserService {
     private final UserDAO userDAO;
     private final UserEntityMapper userEntityMapper;
     private final UserMetricEntityMapper userMetricEntityMapper;
+
     public boolean verifyUser(String username, String password) {
         log.info("##### UserService ### verifyUser");
         String userPassword = userDAO.findByUsername(username).getPassword();
