@@ -27,7 +27,8 @@ public class HomeController {
     @PostMapping("/calculateCalories")
     @ResponseBody
     public Map<String, Object> calculateCalories(@RequestBody Map<String, Object> requestData, HttpSession session) {
-        log.info("### gender START");
+        log.info("### calculateCalories START");
+        log.info("### requestData {}", requestData);
 
         // Pobieramy dane z requestData i parsujemy do odpowiednich typów
         String gender = (String) requestData.get("gender");
