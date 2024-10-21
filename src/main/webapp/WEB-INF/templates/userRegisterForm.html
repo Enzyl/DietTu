@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthyLife - Rejestracja</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+            background-color: #ff4757;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        .register-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+            color: #ff4757;
+        }
+
+        .register-container input[type="text"],
+        .register-container input[type="password"],
+        .register-container input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .register-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff4757;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .register-container button:hover {
+            background-color: #e84118;
+        }
+
+        footer {
+            margin-top: 30px;
+            background-color: #222;
+            color: white;
+            padding: 10px;
+        }
+
+    </style>
 </head>
 <body>
+
+<header>
+    <h1>HealthyLife</h1>
+</header>
+
+<div class="register-container">
+    <h2>Rejestracja</h2>
+    <form th:action="@{/register}" method="post" >
+        <label for="username">Nazwa użytkownika:</label>
+        <input type="text" id="username"  placeholder="Wprowadź nazwę użytkownika" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Wprowadź adres e-mail" required>
+
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" placeholder="Wprowadź hasło" required>
+
+        <button type="submit">Zarejestruj się</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 JavaStreetDevelopers. All rights reserved.</p>
+</footer>
 
 </body>
 </html>

@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html xmlns:th="http://www.thymeleaf.org">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>HealthyLife - Log In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthyLife - Log In</title>
 
     <!-- Dodanie prostych stylów CSS -->
     <style>
@@ -69,6 +65,23 @@
             background-color: #e84118;
         }
 
+        .register-button {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .register-button:hover {
+            background-color: #45a049;
+        }
+
         footer {
             margin-top: 30px;
             background-color: #222;
@@ -91,16 +104,14 @@
         <input type="password" name="password" placeholder="Hasło" required>
         <button type="submit">Zaloguj się</button>
     </form>
+
+    <!-- Dodajemy przycisk "Zarejestruj się" -->
+    <a href="/registerView" class="register-button">Zarejestruj się</a>
 </div>
 
 <footer>
     <p>&copy; 2024 JavaStreetDevelopers. All rights reserved.</p>
 </footer>
-
-</body>
-</html></title>
-</head>
-<body>
 
 </body>
 </html>

@@ -11,6 +11,9 @@ import org.example.infrastructure.database.repository.UserRepository;
 import org.example.infrastructure.database.repository.mapper.UserEntityMapper;
 import org.example.infrastructure.database.repository.mapper.UserMetricEntityMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -21,10 +24,12 @@ public class UserService {
 
     public boolean verifyUser(String username, String password) {
         log.info("##### UserService ### verifyUser");
-        String userPassword = userDAO.findByUsername(username).getPassword();
-        if (userPassword.equals(password)){
-            return true;
-        }
+        User tempUser = new User();
+        tempUser.setUsername("Zbigniew");
+        String userPassword = userDAO.findByUsername(username).orElse(tempUser).toString();
+        log.info("##### UserService ### verifyUser ### userPassword {}",userPassword);
+
+        if (userPassword.equals(password)) return true;
         return false;
     }
 
@@ -61,15 +66,20 @@ public class UserService {
 
     public boolean isUserExist(String username) {
         log.info("##### UserService ### verifyUser");
-        User user = userDAO.findByUsername(username);
-        return user != null ? true : false;
+        Optional<User> user = userDAO.findByUsername(username);
+        if (user.isPresent()){
+            return true;
+        }
+        return false;
     }
 
     public boolean createUser(User user) {
-        UserMetricEntity userMetricEntity = userMetricEntityMapper.mapToEntity(user.getUserMetric());
+        //UserMetricEntity userMetricEntity = userMetricEntityMapper.mapToEntity(user.getUserMetric());
+        log.info("##### UserService ### createUser ### user: {}",user);
 
         UserEntity userEntity = userEntityMapper.mapToEntity(user);
-        userEntity.setUserMetricEntity(userMetricEntity);
+        //userEntity.setUserMetricEntity(userMetricEntity);
+        log.info("##### UserService ### createUser ### user: {}",userEntity);
 
         userDAO.save(userEntity);
 

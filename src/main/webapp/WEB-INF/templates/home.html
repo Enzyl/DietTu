@@ -131,6 +131,7 @@
             let weight = parseFloat(document.getElementById('weight').value);
             let height = parseFloat(document.getElementById('height').value);
             let activity = parseFloat(document.getElementById('activity').value);
+            let targetAction = parseInt(document.getElementById('targetAction').value);
 
             // Wysyłamy dane do serwera, aby zapisać je w sesji
             fetch('/calculateCalories', {
@@ -143,7 +144,8 @@
                     age: age,
                     weight: weight,
                     height: height,
-                    activity: activity
+                    activity: activity,
+                    targetAction: targetAction
                 })
             })
                 .then(response => response.json())
@@ -154,7 +156,7 @@
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                });
+                })
         }
 
 
@@ -192,15 +194,13 @@
 
         <label for="activity">Poziom aktywności fizycznej:</label>
         <select id="activity" name="activity" required>
-            <option value="1.2">Brak lub minimalna aktywność</option>
-            <option value="1.375">Lekka aktywność (np. ćwiczenia 1-3 razy w tygodniu)</option>
-            <option value="1.55">Umiarkowana aktywność (np. ćwiczenia 3-5 razy w tygodniu)</option>
-            <option value="1.725">Wysoka aktywność (np. ćwiczenia 6-7 razy w tygodniu)</option>
-            <option value="1.9">Bardzo wysoka aktywność (np. zawodowe sporty, praca fizyczna)</option>
+            <th:block th:each="activity : ${activityLevels}">
+                <option th:value="${activity.value}" th:text="${activity.description}"></option>
+            </th:block>
         </select>
 
-        <label for="goal">Co chcesz osiągnąć:</label>
-        <select id="goal" name="goal" required>
+        <label for="targetAction">Co chcesz osiągnąć:</label>
+        <select id="targetAction" name="targetAction" required>
             <option value="1">Chcę schudnąć</option>
             <option value="2">Chcę utrzymać wagę</option>
             <option value="3">Chcę przytyć</option>

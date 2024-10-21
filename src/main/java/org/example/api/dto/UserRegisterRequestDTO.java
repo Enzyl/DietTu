@@ -21,6 +21,5 @@ public class UserRegisterRequestDTO {
     @Email(message = "Email should be valid")
     private String email;
 
-    private UserMetric userMetric;
 
 }

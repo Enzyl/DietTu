@@ -21,30 +21,28 @@ public class UserController {
 
     @GetMapping("/showUserProfile")
     public void showUserProfile(){
-
     }
 
     @GetMapping("/registerView")
     public String showRegisterView(){
-        UserRegisterRequestDTO userRegisterRequestDTO;
         //guzik Zarejestruj
-        return "registerView";
+        return "userRegisterForm";
     }
     @PostMapping("/register")
     public String register(@ModelAttribute UserRegisterRequestDTO userRegisterRequestDTO, HttpSession session){
         boolean isUserExist = userService.isUserExist(userRegisterRequestDTO.getUsername());
-        //TODO MP trzeba dodać w loginView opcje czy chce zrestartowac hasło czy zalogować
         if(isUserExist) return "loginView";
 
         User user = User.builder()
                 .username(userRegisterRequestDTO.getUsername())
                 .password(userRegisterRequestDTO.getPassword())
                 .email(userRegisterRequestDTO.getEmail())
-                .userMetric(userRegisterRequestDTO.getUserMetric())
+                //.userMetric(userRegisterRequestDTO.getUserMetric())
                 .build();
 
         if(userService.createUser(user)) return "userLoggedInView";
-        return "registerView";
+
+        return "userRegisterForm";
     }
 
     @GetMapping("/loginView")
