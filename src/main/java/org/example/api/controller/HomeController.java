@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.business.service.UserService;
 import org.example.domain.ActivityLevel;
+import org.example.domain.TargetActionLevel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class HomeController {
     @GetMapping("/")
     public String showMainPage(Model model){
         model.addAttribute("activityLevels", ActivityLevel.values());
+        model.addAttribute("targetActionLevels", TargetActionLevel.values());
         log.info("##### HomeController ### mainPageWorks");
         return "home";
     }

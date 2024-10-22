@@ -21,9 +21,13 @@ public class UserService {
 
     public boolean verifyUser(String username, String password) {
         log.info("##### UserService ### verifyUser");
-        User tempUser = new User();
-        tempUser.setUsername("Zbigniew");
-        String userPassword = userDAO.findByUsername(username).orElse(tempUser).toString();
+
+        if(!isUserExist(username)){
+            log.info("### Ziomek nie istniejesz u nas lol ###");
+            return false;
+        }
+
+        String userPassword = userDAO.findByUsername(username).get().getPassword();
         log.info("##### UserService ### verifyUser ### userPassword {}",userPassword);
 
         if (userPassword.equals(password)) return true;
@@ -86,11 +90,9 @@ public class UserService {
     }
 
     public boolean isUserExist(String username) {
-        log.info("##### UserService ### verifyUser");
+        log.info("##### UserService ### isUserExist");
         Optional<User> user = userDAO.findByUsername(username);
-        if (user.isPresent()){
-            return true;
-        }
+        if (user.isPresent()) return true;
         return false;
     }
 

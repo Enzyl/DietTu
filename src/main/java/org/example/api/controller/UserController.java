@@ -56,6 +56,12 @@ public class UserController {
     public String loginUser(@RequestParam("username") String username,
                             @RequestParam("password") String password,
                             HttpSession session){
+
+        if(!userService.isUserExist(username)){
+            log.info("### Ziomek nie istniejesz u nas lol ###");
+            return "loginView";
+        }
+
         boolean isUserValid = userService.verifyUser(username,password);
         session.setAttribute("username", username);
         session.setAttribute("userLoggedIn", isUserValid);

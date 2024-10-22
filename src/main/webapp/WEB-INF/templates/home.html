@@ -201,9 +201,10 @@
 
         <label for="targetAction">Co chcesz osiągnąć:</label>
         <select id="targetAction" name="targetAction" required>
-            <option value="1">Chcę schudnąć</option>
-            <option value="2">Chcę utrzymać wagę</option>
-            <option value="3">Chcę przytyć</option>
+            <th:block th:each="targetAction : ${targetActionLevels}">
+                <option th:value="${targetAction.value}" th:text="${targetAction.description}"></option>
+            </th:block>
+
         </select>
 
         <input type="submit" value="Oblicz zapotrzebowanie kaloryczne">
