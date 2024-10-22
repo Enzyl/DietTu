@@ -43,12 +43,14 @@ public class HomeController {
 
         // Wyliczamy zapotrzebowanie kaloryczne
         double recommendedCalorieIntake = userService.calculateCPM(gender, age, weight, height, activity, targetAction);
+        double recommendedWeight = userService.calculateVMC(gender, height);
 
         log.info("### gender {}  #age {} #weight {} #height {} #activity {} ###", gender, age, weight, height, activity);
 
         // Tworzymy odpowiedź w formacie JSON
         Map<String, Object> response = new HashMap<>();
         response.put("recommendedCalorieIntake", recommendedCalorieIntake);
+        response.put("recommendedWeight", recommendedWeight);
 
         session.setAttribute("gender", gender);
         session.setAttribute("age", age);
@@ -56,6 +58,7 @@ public class HomeController {
         session.setAttribute("height", height);
         session.setAttribute("activity", activity);
         session.setAttribute("recommendedCalorieIntake", recommendedCalorieIntake);
+        session.setAttribute("recommendedWeight", recommendedWeight);
         return response;
     }
 

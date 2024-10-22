@@ -152,6 +152,7 @@
                 .then(data => {
                     console.log('Success:', data);
                     document.getElementById('calorieResult').innerText = "Zapotrzebowanie kaloryczne: " + data.recommendedCalorieIntake + " kcal";
+                    document.getElementById('weightResult').innerText = "Docelowa waga dla ciebie: " + data.recommendedWeight + " kg";
                     document.getElementById('resultContainer').style.display = "block";
                 })
                 .catch((error) => {
@@ -213,6 +214,7 @@
     <!-- Ukryty element z wynikiem -->
     <div id="resultContainer" class="result">
         <p id="calorieResult">Zapotrzebowanie kaloryczne: </p>
+        <p id="weightResult">Docelowa waga: </p>
         <a href="/generateDiet" class="cta-button">Wygeneruj dietę</a>
     </div>
 
