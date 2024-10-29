@@ -18,13 +18,17 @@ public class UserRepository implements UserDAO{
 
     @Override
     public Optional<User> findByUsername(String username) {
-        log.info("##### UserRepository ### findByUsername");
+        log.info("##### UserRepository ### findByUsername # START");
         Optional<UserEntity> byUsername = userJpaRepository.findByUsername(username);
         //if(byUsername.isEmpty()) throw new UsernameNotFoundException("User ["+username+"] not found");
         if (byUsername.isEmpty()){
+            log.info("##### UserRepository ### findByUsername # MID IF");
             return Optional.empty();
         }
         User user = userEntityMapper.mapFromEntity(byUsername.get());
+        log.info("##### UserRepository ### findByUsername # user: {}",user.toString());
+        log.info("##### UserRepository ### findByUsername # END");
+
         return Optional.of(user);
     }
 

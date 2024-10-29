@@ -19,7 +19,7 @@ public class HomeController {
     private final UserService userService;
 
     @GetMapping("/")
-    public String showMainPage(Model model){
+    public String showMainPage(Model model) {
         model.addAttribute("activityLevels", ActivityLevel.values());
         model.addAttribute("targetActionLevels", TargetActionLevel.values());
         log.info("##### HomeController ### mainPageWorks");
@@ -63,9 +63,14 @@ public class HomeController {
     }
 
     @GetMapping("/generateDiet")
-    public String generateDiet(HttpSession session){
+    public String generateDiet(HttpSession session) {
         log.info("##### HomeController ### generateDiet");
-        boolean userLoggedIn =(boolean) session.getAttribute("userLoggedIn");
+        log.info("##### HomeController ### generateDiet");
+            boolean userLoggedIn = false;
+        if (session.getAttribute("userLoggedIn") != null && (boolean) session.getAttribute("userLoggedIn") == true){
+            userLoggedIn = true;
+            }
+
         log.info("##### HomeController ### userLoggedIn: {}", userLoggedIn);
 
         if (!userLoggedIn){

@@ -1,12 +1,15 @@
 package org.example.api.controller;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.api.dto.UserRegisterRequestDTO;
 import org.example.business.service.UserService;
 import org.example.domain.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,17 +22,25 @@ public class UserController {
     private final UserService userService;
 
 
+
     @GetMapping("/showUserProfile")
     public void showUserProfile(){
     }
 
     @GetMapping("/registerView")
-    public String showRegisterView(){
+    public String showRegisterView(Model model){
         //guzik Zarejestruj
+        model.addAttribute("userRegisterRequestDTO", new UserRegisterRequestDTO());
         return "userRegisterForm";
     }
     @PostMapping("/register")
-    public String register(@ModelAttribute UserRegisterRequestDTO userRegisterRequestDTO, HttpSession session){
+    public String register(@Valid @ModelAttribute UserRegisterRequestDTO userRegisterRequestDTO,
+                           BindingResult result,
+                           HttpSession session) {
+        if (result.hasErrors()) {
+            return "userRegisterForm"; // wróć do formularza, jeśli są błędy walidacji
+        }
+
         boolean isUserExist = userService.isUserExist(userRegisterRequestDTO.getUsername());
         if(isUserExist) return "loginView";
 
@@ -37,10 +48,11 @@ public class UserController {
                 .username(userRegisterRequestDTO.getUsername())
                 .password(userRegisterRequestDTO.getPassword())
                 .email(userRegisterRequestDTO.getEmail())
-                //.userMetric(userRegisterRequestDTO.getUserMetric())
                 .build();
 
-        if(userService.createUser(user)) return "userLoggedInView";
+        if(userService.createUser(user)){
+            return "userLoggedInView";
+        }
 
         return "userRegisterForm";
     }
@@ -59,10 +71,10 @@ public class UserController {
 
         if(!userService.isUserExist(username)){
             log.info("### Ziomek nie istniejesz u nas lol ###");
-            return "loginView";
+            return "userRegisterForm";
         }
 
-        boolean isUserValid = userService.verifyUser(username,password);
+        boolean isUserValid = userService.checkIfUserCredentialsCorrect(username,password);
         session.setAttribute("username", username);
         session.setAttribute("userLoggedIn", isUserValid);
         if(!isUserValid){
@@ -72,4 +84,13 @@ public class UserController {
         log.info("### Udało się wbić, jest gites ###");
         return "userLoggedInView";
     }
+
+    @GetMapping("/loggedInView")
+    public String showUserLoggedInView(Model model, HttpSession session){
+        model.addAttribute("username", session.getAttribute("username"));
+        return "loggedInView";
+    }
+
+
+
 }

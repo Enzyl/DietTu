@@ -19,7 +19,8 @@ public class UserService {
     private final UserEntityMapper userEntityMapper;
     private final UserMetricEntityMapper userMetricEntityMapper;
 
-    public boolean verifyUser(String username, String password) {
+    // wczesniej to byla metoda verifyUser
+    public boolean checkIfUserCredentialsCorrect(String username, String password) {
         log.info("##### UserService ### verifyUser");
 
         if(!isUserExist(username)){
@@ -34,15 +35,6 @@ public class UserService {
         return false;
     }
 
-    private double formulaHarrisBenedict(boolean isWoman, int age, double weight, double height) {
-        return isWoman ? (655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age)) :
-                (66.473 + (13.752 * weight) + (5.003 * height) - (6.775 * age));
-    }
-
-    private double formulaMifflin(boolean isWoman, int age, double weight, double height) {
-        return isWoman ? (10 * weight) + (6.25 * height) + (5 * age) - 161 :
-                (10 * weight) + (6.25 * height) + (5 * age) + 5;
-    }
     public double calculateCPM(String gender, int age, double weight, double height, double activity, int targetAction) {
         if(age<4) return 1000;
         else if(age<7) return 1400;
@@ -55,7 +47,7 @@ public class UserService {
         double value1 =  formulaHarrisBenedict(isWoman, age, weight, height);
         double value2 =  formulaMifflin(isWoman, age, weight, height);
         double cpm = (value1*activity+value2*activity)/2;
-        log.info("### UserService ### calculateCalories ### RESULT: {}",cpm);
+        log.info("### UserService ### calculateCalories ### RESULT: {}", cpm);
 
         if(targetAction != 1) return cpm;
         if(cpm*0.2<500) return cpm*0.8;
@@ -68,23 +60,14 @@ public class UserService {
                    (value1*activity+value2*activity)/2-500;
          */
     }
-    private double formulaLorentza(boolean isWoman, double height){
-        return isWoman ? height-100-0.5*(height-150) : height-100-0.25*(height-150);
-    }
-    private double formulaPottona(boolean isWoman, double height){
-        return isWoman ? height-100-(height-100)/10 : height-100-(height-100)/20;
-    }
-    private double formulaBroca(boolean isWoman, double height){
-        return isWoman ? height-100*0.9 : height-100*0.95;
-    }
     //TODO MP obsłużyć w html czy ktos chce schudnac a jak jest za chudy to ze nie tedy droga złamasie
     public double calculateVMC(String gender, double height){
         boolean isWoman = false;
         if(gender.equals("Kobieta")) isWoman = true;
 
-        double value1 = formulaLorentza(isWoman, height);
-        double value2 = formulaPottona(isWoman, height);
-        double value3 = formulaBroca(isWoman, height);
+        double value1 = formulaLorentz(isWoman, height);
+        double value2 = formulaPotton(isWoman, height);
+        double value3 = formulaBroc(isWoman, height);
 
         return (value1+value2+value3)/3;
     }
@@ -95,7 +78,6 @@ public class UserService {
         if (user.isPresent()) return true;
         return false;
     }
-
     public boolean createUser(User user) {
         //UserMetricEntity userMetricEntity = userMetricEntityMapper.mapToEntity(user.getUserMetric());
         log.info("##### UserService ### createUser ### user: {}",user);
@@ -104,9 +86,37 @@ public class UserService {
         //userEntity.setUserMetricEntity(userMetricEntity);
         log.info("##### UserService ### createUser ### user: {}",userEntity);
 
+
         userDAO.save(userEntity);
 
-        if(userDAO.findByUsername(user.getUsername()) != null) return true;
-        else return false;
+
+        Optional<User> byUsername = userDAO.findByUsername(user.getUsername());
+        log.info("##### UserService ### createUser ### user: {}",byUsername);
+
+        if(byUsername != null &&  byUsername.isPresent()){
+            log.info("##### UserService ### createUser ### if 'true'");
+            return true;
+        }
+        return false;
+    }
+
+    private double formulaHarrisBenedict(boolean isWoman, int age, double weight, double height) {
+        return isWoman ? (655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age)) :
+                (66.473 + (13.752 * weight) + (5.003 * height) - (6.775 * age));
+    }
+
+    private double formulaMifflin(boolean isWoman, int age, double weight, double height) {
+        return isWoman ? (10 * weight) + (6.25 * height) + (5 * age) - 161 :
+                (10 * weight) + (6.25 * height) + (5 * age) + 5;
+    }
+
+    private double formulaLorentz(boolean isWoman, double height){
+        return isWoman ? height-100-0.5*(height-150) : height-100-0.25*(height-150);
+    }
+    private double formulaPotton(boolean isWoman, double height){
+        return isWoman ? height-100-(height-100)/10 : height-100-(height-100)/20;
+    }
+    private double formulaBroc(boolean isWoman, double height){
+        return isWoman ? height-100*0.9 : height-100*0.95;
     }
 }
