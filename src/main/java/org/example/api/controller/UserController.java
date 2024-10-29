@@ -21,10 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     private final UserService userService;
 
-
-
     @GetMapping("/showUserProfile")
-    public void showUserProfile(){
+    public String showUserProfile(Model model, HttpSession session){
+        return "userProfile";
     }
 
     @GetMapping("/registerView")
@@ -51,7 +50,7 @@ public class UserController {
                 .build();
 
         if(userService.createUser(user)){
-            return "userLoggedInView";
+            return "userLoggedInView"; //tu
         }
 
         return "userRegisterForm";
@@ -85,10 +84,10 @@ public class UserController {
         return "userLoggedInView";
     }
 
-    @GetMapping("/loggedInView")
+    @PostMapping("/loggedInView")
     public String showUserLoggedInView(Model model, HttpSession session){
         model.addAttribute("username", session.getAttribute("username"));
-        return "loggedInView";
+        return "userLoggedInView";
     }
 
 

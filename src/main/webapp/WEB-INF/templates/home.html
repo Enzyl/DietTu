@@ -159,8 +159,6 @@
                     console.error('Error:', error);
                 })
         }
-
-
     </script>
 
 </head>
@@ -205,7 +203,6 @@
             <th:block th:each="targetAction : ${targetActionLevels}">
                 <option th:value="${targetAction.value}" th:text="${targetAction.description}"></option>
             </th:block>
-
         </select>
 
         <input type="submit" value="Oblicz zapotrzebowanie kaloryczne">
