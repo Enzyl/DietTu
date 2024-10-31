@@ -16,7 +16,8 @@ VALUES (25, 180, 2500, 80.0, 1, 1),
 INSERT INTO users (username, password, email, preferencesId, userMetricId)
 VALUES ('john_paul', '2137', 'john@example.com', 1, 1),
        ('paul_john', '2137', 'paul@example.com', 2, 2),
-       ('fondant_beast', '2137', 'fondant@example.com', 3, 3);
+       ('adrew_tate', '2137', 'adrew@example.com', 3, 3),
+       ('fondant_beast', '2137', 'fondant@example.com', 4, 4);
 
 -- Insert sample ingredients
 INSERT INTO ingredients (name, allergens, measure)

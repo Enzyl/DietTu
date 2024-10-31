@@ -6,6 +6,7 @@
     <title>HealthyLife - Start Your Journey</title>
 
     <style>
+        /* Style podstawowe */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
@@ -26,7 +27,7 @@
             font-size: 3rem;
         }
 
-        .login-button {
+        /*.login-button {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -36,7 +37,7 @@
             text-decoration: none;
             font-size: 1rem;
             border-radius: 25px;
-        }
+        }*/
 
         .login-button:hover {
             background-color: #f4f4f9;
@@ -120,6 +121,150 @@
             color: white;
             padding: 10px;
         }
+
+        /* Przycisk zmiany motywu i styl przycisków */
+.login-button,
+.theme-toggle {
+    padding: 10px 20px;
+    background-color: white;
+    color: #ff4757;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.login-button:hover, .theme-toggle:hover {
+    background-color: #f4f4f9;
+}
+
+/* Style ciemnego motywu */
+body.dark-mode {
+    background-color: #121212;
+    color: #f4f4f9;
+}
+
+header.dark-mode {
+    background-color: #222;
+}
+
+/* Przyciski w ciemnym motywie */
+.login-button.dark-mode,
+.theme-toggle.dark-mode {
+    background-color: #333;
+    color: #f4f4f9;
+}
+        /* Formularz w ciemnym motywie */
+form.dark-mode {
+    background-color: #333;
+    color: #f4f4f9;
+}
+
+form.dark-mode input, form.dark-mode select, form.dark-mode label {
+    background-color: #444;
+    color: #f4f4f9;
+    border: 1px solid #555;
+}
+
+/* Zielone tło i elementy w ciemnym motywie */
+header.dark-mode,
+.cta-button.dark-mode,
+input[type="submit"].dark-mode {
+    background-color: #1e731e; /* Jasnozielony */
+    color: #fff;
+}
+
+/* Zielony kolor dla przycisków w ciemnym motywie */
+.theme-toggle.dark-mode,
+.login-button.dark-mode {
+    color: #1e731e;
+    background-color: #333;
+}
+/* Styl przełącznika */
+.theme-toggle {
+    position: relative;
+    width: 60px; /* szerokość przełącznika */
+    height: 30px; /* wysokość przełącznika */
+    background-color: #fdd835; /* Żółty dla trybu jasnego */
+    border-radius: 30px; /* Owalny kształt */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+
+/* Styl thumb przełącznika */
+.theme-toggle .toggle-thumb {
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #fdd835;
+    transition: transform 0.3s, color 0.3s;
+}
+
+/* Pozycja thumb w ciemnym trybie */
+.theme-toggle.dark .toggle-thumb {
+    transform: translateX(30px); /* Przesunięcie na prawą stronę */
+    color: #1e90ff; /* Kolor ikony dla ciemnego trybu */
+}
+
+/* Kolor przełącznika w ciemnym trybie */
+.theme-toggle.dark {
+    background-color: #1e90ff; /* Ciemnoniebieski */
+}
+
+/* Kontener na przyciski w prawym górnym rogu */
+        .header-buttons {
+            position: absolute; /* Umiejscawia kontener w prawym górnym rogu */
+            top: 20px; /* Odstęp od góry */
+            right: 20px; /* Odstęp od prawej */
+            display: flex; /* Umożliwia układ w wierszu */
+            align-items: center; /* Wyrównanie w pionie */
+            gap: 10px; /* Odstęp między przyciskami */
+        }
+
+/* Zmniejszenie rozmiaru przełącznika */
+.theme-toggle {
+    width: 50px;
+    height: 25px;
+}
+
+/* Styl dla login-button */
+.login-button {
+    padding: 10px 20px;
+    background-color: white;
+    color: #ff4757;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #f4f4f9;
+}
+
+        /* Styl dla efektu kursora */
+.cursor-effect {
+    position: fixed; /* Umożliwia swobodne poruszanie się */
+    width: 40px; /* Promień 2cm */
+    height: 40px; /* Promień 2cm */
+    border: 4px solid black; /* Gruba czarna obwódka */
+    border-radius: 50%; /* Okrągły kształt */
+    pointer-events: none; /* Ignoruje zdarzenia myszki */
+    transform: translate(-50%, -50%); /* Centruje kółko na kursorze */
+    opacity: 0; /* Na początku niewidoczne */
+    transition: opacity 0.2s; /* Płynne przejście przy zmianie widoczności */
+}
+
+
     </style>
 
     <script>
@@ -159,16 +304,104 @@
                     console.error('Error:', error);
                 })
         }
-    </script>
 
+       function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    document.querySelectorAll('.login-button, header, form, .cta-button, input[type="submit"]').forEach(el => el.classList.toggle('dark-mode'));
+
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.classList.toggle('dark');
+
+    // Zmiana ikony na księżyc (🌙) w ciemnym trybie i słońce (☀️) w jasnym
+    const thumb = themeToggle.querySelector('.toggle-thumb');
+    thumb.textContent = themeToggle.classList.contains('dark') ? '🌙' : '☀️';
+
+    const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+
+    // Zmiana widoczności efektu kursora
+    cursorEffect.style.opacity = document.body.classList.contains('dark-mode') ? 1 : 0;
+}
+
+
+window.onload = function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        toggleTheme();
+    }
+};
+
+        // Obiekt dla efektu kursora
+const cursorEffect = document.getElementById('cursorEffect');
+
+// Funkcja pokazująca kursor
+document.addEventListener('mousemove', (event) => {
+    cursorEffect.style.left = `${event.pageX}px`;
+    cursorEffect.style.top = `${event.pageY}px`;
+    cursorEffect.style.opacity = 1; // Ustaw widoczność
+});
+
+// Naładowanie strony - ukryj kursor
+window.addEventListener('load', () => {
+    cursorEffect.style.opacity = 0; // Ukryj kursor przy ładowaniu
+});
+
+// Dodaj event na mouseout, aby ukryć kursor, gdy opuści okno
+document.addEventListener('mouseout', () => {
+    cursorEffect.style.opacity = 0; // Ukryj kursor, gdy mysz opuszcza okno
+});
+
+// Przełącznik motywu
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    document.querySelectorAll('.login-button, header, form, .cta-button, input[type="submit"]').forEach(el => el.classList.toggle('dark-mode'));
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.classList.toggle('dark');
+    const thumb = themeToggle.querySelector('.toggle-thumb');
+    thumb.textContent = themeToggle.classList.contains('dark') ? '🌙' : '☀️';
+
+    // Ustaw widoczność efektu kursora
+    cursorEffect.style.opacity = document.body.classList.contains('dark-mode') ? 1 : 0;
+}
+
+// Zmienna do przechowywania informacji o stanie kursora
+let isCursorVisible = false;
+
+// Funkcja do pokazywania kursora
+function showCursor() {
+    cursorEffect.style.opacity = 1;
+    isCursorVisible = true;
+}
+
+// Funkcja do ukrywania kursora
+function hideCursor() {
+    cursorEffect.style.opacity = 0;
+    isCursorVisible = false;
+}
+
+// Funkcje do rejestracji zdarzeń
+document.addEventListener('mouseenter', showCursor);
+document.addEventListener('mouseleave', hideCursor);
+
+
+    </script>
 </head>
 <body>
 
 <header>
     <h1>JavaStreetDevelopers zaprasza</h1>
-    <a href="/loginView" class="login-button">Log in</a>
+    <div class="header-buttons">
+        <!-- Przełącznik ciemnego trybu -->
+        <div onclick="toggleTheme()" class="theme-toggle light">
+            <div class="toggle-thumb"></div> <!-- Thumb przełącznika -->
+        </div>
+
+        <a href="/loginView" class="login-button">Log in</a>
+    </div>
     <p>Jedziemy panowie!</p>
 </header>
+
+<div class="cursor-effect" id="cursorEffect"></div>
 
 <div class="content">
     <img th:src="@{/resources/calories-burn-meme.jpg}" alt="Healthy Lifestyle Image" />
